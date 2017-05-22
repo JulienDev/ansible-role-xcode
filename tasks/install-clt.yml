@@ -1,4 +1,10 @@
 ---
+
+- name: Delete existing key
+  shell: sqlite3  "/library/application support/com.apple.tcc/tcc.db" 'DELETE FROM "access" WHERE `service` = "kTCCServiceAccessibility"'
+  become: yes
+  ignore_errors: yes
+
 - name: Enable apps to control the computer
   shell: sqlite3  "/library/application support/com.apple.tcc/tcc.db" 'INSERT INTO "access" VALUES("kTCCServiceAccessibility","/usr/libexec/sshd-keygen-wrapper",1,1,1,NULL,NULL);'
   become: yes
